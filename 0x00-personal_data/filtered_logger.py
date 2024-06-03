@@ -5,9 +5,10 @@
 
 
 import re
+from typing import List
 
 
-def match_field(message, field, reda):
+def match_field(message: str, field: List, reda: str) -> List:
     """matches field to replace"""
     for pos in range(len(message)):
         if field in message[pos]:
@@ -16,7 +17,11 @@ def match_field(message, field, reda):
             return [pos, pattern, repl]
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(
+        fields: List,
+        redaction: str,
+        message: str,
+        separator: str) -> str:
     """filters and logs message in obfuscated format"""
     mes_splited = message.split(separator)
     for field in fields:
