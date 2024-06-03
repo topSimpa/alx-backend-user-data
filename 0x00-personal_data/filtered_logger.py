@@ -8,7 +8,7 @@ import re
 from typing import List
 
 
-def match_field(message: str, field: List, reda: str) -> List:
+def match_field(message: str, field: str, reda: str) -> List:
     """matches field to replace"""
     for pos in range(len(message)):
         if field in message[pos]:
@@ -18,7 +18,7 @@ def match_field(message: str, field: List, reda: str) -> List:
 
 
 def filter_datum(
-        fields: List,
+        fields: List[str],
         redaction: str,
         message: str,
         separator: str) -> str:
