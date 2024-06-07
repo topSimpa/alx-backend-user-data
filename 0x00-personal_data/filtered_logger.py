@@ -4,6 +4,8 @@
 """
 
 import logging
+import mysql.connector
+import os
 import re
 from typing import List
 
@@ -51,3 +53,15 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     logger.addHandler(handler)
     return (logger)
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """connects to the database and returns a connector object"""
+    connector = mysql.connector.connect(
+        host=os.environ["PERSONAL_DATA_DB_HOST"],
+        user=os.environ["PERSONAL_DATA_DB_USERNAME"],
+        passwd=os.environ["PERSONAL_DATA_DB_PASSWORD"],
+        database=os.environ["PERSONAL_DATA_DB_NAME"]
+    )
+
+    return (connector)
