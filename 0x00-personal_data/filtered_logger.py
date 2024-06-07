@@ -41,9 +41,11 @@ class RedactingFormatter(logging.Formatter):
                                   record.getMessage(), self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
 
+
 def get_logger() -> logging.Logger:
     """return logging.logger object at info level"""
-    logger  = logging.getLogger("user_data")
+    logger = logging.getLogger("user_data")
+    logger.propagate = False
     logger.setLevel(logging.INFO)
     handler = logging.StreamHandler()
     handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
