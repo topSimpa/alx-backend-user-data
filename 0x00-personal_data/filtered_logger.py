@@ -8,7 +8,7 @@ import re
 from typing import List
 
 
-PII_FIELDS = ('email', 'phone', 'ssn', 'password', 'ip')
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'ip')
 
 
 def filter_datum(
@@ -21,16 +21,6 @@ def filter_datum(
         message = re.sub(f'{field}=.*?{separator}',
                          f'{field}={redaction}{separator}', message)
     return (message)
-
-
-def get_logger() -> logging.Logger:
-    """return logging.logger object at info level"""
-    logger = logging.get_logger('user_data')
-    logger.setLevel(logging.INFO)
-    handler = logging.StreamHandler()
-    handler.setFormat(RedactingFormatter(PII_FIELDS))
-    logger.addHandler(handler)
-    return (logger)
 
 
 class RedactingFormatter(logging.Formatter):
@@ -50,3 +40,12 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION,
                                   record.getMessage(), self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
+
+def get_logger() -> logging.Logger:
+    """return logging.logger object at info level"""
+    logger = logging.get_logger('user_data')
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setFormat(RedactingFormatter(PII_FIELDS))
+    logger.addHandler(handler)
+    return (logger)
