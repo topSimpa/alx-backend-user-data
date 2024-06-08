@@ -64,3 +64,40 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         database=os.environ["PERSONAL_DATA_DB_NAME"]
     )
     return (connector)
+
+
+def main():
+    """Obtains a database connection using get_db and
+        retrieve all rows in the users table and
+        display each row under a filtered format
+    """
+
+    logger = get_logger()
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute(
+        "SELECT * FROM users;"
+    )
+    result = cursor.fetchall()
+
+    for row in result:
+        data = {
+            "name": f"name={row[0]}; ",
+            "email": f"email={row[1]}; ",
+            "phone": f"phone={row[2]}; ",
+            "ssn": f"ssn={row[3]}; ",
+            "password": f"password={row[4]}; ",
+            "ip": f"ip={row[5]}; ",
+            "last_login": f"last_login={row[6]}; ",
+            "user_agent": f"user_agent={row[7]};"
+        }
+        line = data['name'] + data['email'] + data['phone'] + \
+            data['ssn'] + data['password'] + data['ip'] + \
+            data['last_login'] + data['user_agent']
+
+        logger.info(line)
+    cursor.close()
+
+
+if __name__ == '__main__':
+    main()
