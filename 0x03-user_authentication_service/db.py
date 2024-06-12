@@ -61,3 +61,5 @@ class DB:
             if not (hasattr(user, attr)):
                 raise ValueError
             exec(f"user.{attr} = value")
+
+        self._session.commit()
