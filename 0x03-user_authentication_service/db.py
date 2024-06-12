@@ -9,6 +9,7 @@ from sqlalchemy.orm.session import Session
 from user import Base
 from user import User
 
+
 class DB:
     """DB class
     """
@@ -30,7 +31,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email:str, hashed_password:str) -> User:
+    def add_user(self, email: str, hashed_password: str) -> User:
         """add a user to the data-base"""
 
         new_user = User(email=email,
