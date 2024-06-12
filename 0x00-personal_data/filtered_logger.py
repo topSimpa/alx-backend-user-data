@@ -3,6 +3,7 @@
     Module for Filter_datum task
 """
 
+import bcrypt
 import logging
 import mysql.connector
 import os
