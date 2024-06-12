@@ -4,8 +4,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
-
+from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
 
 
@@ -37,3 +38,17 @@ class DB:
         self._session.add(new_user)
         self._session.commit()
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """filters user by keyword"""
+        field = list(kwargs.keys())[0]
+        if not (hasattr(User, field)):
+            raise InvalidRequestError
+        value = kwargs[field]
+        query = self._session.query(User).filter(
+            eval(f"User.{field}") == value)
+
+        user = query.first()
+        if user is None:
+            raise NoResultFound
+        return user
