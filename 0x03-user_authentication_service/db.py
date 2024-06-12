@@ -52,3 +52,12 @@ class DB:
         if user is None:
             raise NoResultFound
         return user
+
+    def update_user(self, user_id, **kwargs) -> None:
+        """updates a user by filtering for id"""
+        user = self.find_user_by(id=user_id)
+
+        for attr, value in kwargs.items():
+            if not (hasattr(user, attr)):
+                raise ValueError
+            exec(f"user.{attr} = value")
