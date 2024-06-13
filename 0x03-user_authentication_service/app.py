@@ -3,7 +3,7 @@
     Main flask app module file
 """
 
-from flask import Flask
+from flask import Flask, jsonify
 
 
 app = flask(__name__)
