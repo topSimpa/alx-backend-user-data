@@ -5,6 +5,7 @@
 
 import bcrypt
 
+
 def _hash_password(password: str) -> bytes:
     """hashes a password"""
     pw_byte = password.encode("ascii")
