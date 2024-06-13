@@ -55,8 +55,10 @@ class DB:
 
     def update_user(self, user_id, **kwargs) -> None:
         """updates a user by filtering for id"""
-        user = self.find_user_by(id=user_id)
-
+        try:
+            user = self.find_user_by(id=user_id)
+        except Exception:
+            raise ValueError
         for attr, value in kwargs.items():
             if not (hasattr(user, attr)):
                 raise ValueError
