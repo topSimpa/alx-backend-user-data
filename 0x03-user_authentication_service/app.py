@@ -7,7 +7,7 @@ from flask import Flask, jsonify
 from flask.wrappers import Response
 
 
-app = flask(__name__)
+app = Flask(__name__)
 
 
 @app.route("/", methods=["GET"])
