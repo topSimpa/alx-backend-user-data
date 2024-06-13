@@ -4,13 +4,14 @@
 """
 
 from flask import Flask, jsonify
+from flask.wrappers import Response
 
 
 app = flask(__name__)
 
 
 @app.route("/", methods=["GET"])
-def root():
+def index() -> Response:
     """view function:
         response for the domain root
     """
