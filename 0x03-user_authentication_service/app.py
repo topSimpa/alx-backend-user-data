@@ -3,7 +3,13 @@
     Main flask app module file
 """
 
-from flask import Flask, jsonify
+from auth import Auth
+from flask import (
+    Flask,
+    jsonify,
+    request
+)
+
 from flask.wrappers import Response
 
 
@@ -17,8 +23,27 @@ def index() -> Response:
     """
 
     return jsonify({
-            "message": "Bienvenue"
-           })
+        "message": "Bienvenue"
+    })
+
+
+@app.route("/users", methods=["POST"])
+def users() -> Response:
+    """help register a non-existing user"""
+
+    email = request.form["email"]
+    password = request.form["password"]
+    try:
+        new_user = Auth().register_user(email, password)
+        return jsonify({
+            "email": email, "message": "user created"
+        })
+    except ValueError as e:
+        response = jsonify({
+            "message": "email already registered"
+        })
+        response.status_code = 400
+        return response
 
 
 if __name__ == "__main__":
