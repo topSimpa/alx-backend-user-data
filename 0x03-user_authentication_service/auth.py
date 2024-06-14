@@ -3,13 +3,14 @@
     Module for authentications
 """
 
-import bcrypt
 from db import (
     DB,
     NoResultFound
 )
 
 from user import User
+import bcrypt
+import uuid
 
 
 def _hash_password(password: str) -> bytes:
@@ -17,6 +18,11 @@ def _hash_password(password: str) -> bytes:
     pw_byte = password.encode("ascii")
     hash_password = bcrypt.hashpw(pw_byte, bcrypt.gensalt())
     return (hash_password)
+
+
+def _generate_uuid() -> str:
+    """generates a random identifier"""
+    return str(uuid.uuid4())
 
 
 class Auth:
@@ -42,6 +48,6 @@ class Auth:
         try:
             pot_user = self._db.find_user_by(email=email)
             return bcrypt.checkpw(password.encode(
-                                          'ascii'), pot_user.hashed_password)
+                'ascii'), pot_user.hashed_password)
         except Exception:
             return False
