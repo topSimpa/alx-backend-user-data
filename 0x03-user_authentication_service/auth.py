@@ -40,8 +40,8 @@ class Auth:
         """check if login details are correct"""
 
         try:
-            pot_user = self._db.filter_user_by(email=email)
+            pot_user = self._db.find_user_by(email=email)
             return bcrypt.checkpw(password.encode(
-                                          'ascii', user.hash_password))
+                                          'ascii'), pot_user.hashed_password)
         except Exception:
             return False
