@@ -35,3 +35,13 @@ class Auth:
             h_passwd = _hash_password(password)
             n_user = self._db.add_user(email, h_passwd)
             return (n_user)
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """check if login details are correct"""
+
+        try:
+            pot_user = self._db.filter_user_by(email=email)
+            return bcrypt.checkpw(password.encode(
+                                          'ascii', user.hash_password))
+        except Exception:
+            return False
