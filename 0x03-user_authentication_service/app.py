@@ -46,6 +46,7 @@ def users() -> Response:
         response.status_code = 400
         return response
 
+
 @app.route("/sessions", methods=["POST"])
 def login() -> Response:
     """logs a user in"""
@@ -59,11 +60,10 @@ def login() -> Response:
 
     new_sess_id = auth.create_session(email)
     response = jsonify({
-                "email": email,
-                "message": "logged in"
-               })
+        "email": email,
+        "message": "logged in"
+    })
     return response.set_cookie("session_id", new_sess_id)
-
 
 
 if __name__ == "__main__":
