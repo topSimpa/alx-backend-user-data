@@ -3,7 +3,7 @@
     Main flask app module file
 """
 
-from auth import Auth as AUTH
+from auth import Auth
 from flask import (
     abort,
     Flask,
@@ -53,8 +53,9 @@ def login() -> Response:
 
     email = request.form["email"]
     password = request.form["password"]
+    print(email, password)
 
-    auth = AUTH()
+    auth = Auth()
     if not auth.valid_login(email, password):
         abort(401)
 
