@@ -8,7 +8,9 @@ from flask import (
     abort,
     Flask,
     jsonify,
-    request
+    redirect,
+    request,
+    url_for
 )
 
 from flask.wrappers import Response
@@ -66,6 +68,19 @@ def login() -> Response:
     response.set_cookie("session_id", new_sess_id)
 
     return (response)
+
+
+@app.route("/sessions", methods=["DELETE"])
+def logout() -> Response:
+    """logs out a user"""
+
+    session_id = request.cookies.get("session_id")
+    pos_user = AUTH.get_user_from_session_id(session_id)
+
+    if pos_user is None:
+        abort(403)
+    AUTH.destroy_session(pos_user.id)
+    return redirect(url_for(index))
 
 
 if __name__ == "__main__":
