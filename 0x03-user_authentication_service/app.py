@@ -17,6 +17,7 @@ from flask.wrappers import Response
 app = Flask(__name__)
 AUTH = Auth()
 
+
 @app.route("/", methods=["GET"])
 def index() -> Response:
     """view function:
