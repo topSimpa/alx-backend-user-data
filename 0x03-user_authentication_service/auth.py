@@ -98,6 +98,6 @@ class Auth:
             pos_user = self._db.find_user_by(reset_token=reset_token)
             h_passwd = _hash_password(password)
             self._db.update_user(pos_user.id, hashed_password=h_passwd)
-            self._db.update_user(pos_user.id, reset_token=reset_token)
+            self._db.update_user(pos_user.id, reset_token=None)
         except NoResultFound:
             raise ValueError
