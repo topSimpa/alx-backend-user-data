@@ -51,7 +51,7 @@ def users() -> Response:
 
 @app.route("/sessions", methods=["POST"])
 def login() -> Response:
-    """logs a user in"""
+    """helps logs a user in"""
 
     email = request.form["email"]
     password = request.form["password"]
@@ -71,7 +71,7 @@ def login() -> Response:
 
 @app.route("/sessions", methods=["DELETE"])
 def logout() -> Response:
-    """logs out a user"""
+    """help to logs out a user"""
 
     session_id = request.cookies.get("session_id")
     pos_user = AUTH.get_user_from_session_id(session_id)
