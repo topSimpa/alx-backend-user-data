@@ -62,7 +62,7 @@ class Auth:
         except NoResultFound:
             pass
 
-    def get_user_from_session_id(session_id: string) -> User:
+    def get_user_from_session_id(session_id: str) -> User:
         """get a user using its session_id"""
 
         try:
