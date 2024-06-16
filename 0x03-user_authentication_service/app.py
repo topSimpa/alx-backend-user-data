@@ -15,7 +15,7 @@ from flask.wrappers import Response
 
 
 app = Flask(__name__)
-
+AUTH = Auth()
 
 @app.route("/", methods=["GET"])
 def index() -> Response:
@@ -35,7 +35,7 @@ def users() -> Response:
     email = request.form["email"]
     password = request.form["password"]
     try:
-        new_user = AUTH().register_user(email, password)
+        new_user = AUTH.register_user(email, password)
         return jsonify({
             "email": email, "message": "user created"
         })
@@ -44,7 +44,7 @@ def users() -> Response:
             "message": "email already registered"
         })
         response.status_code = 400
-        return response
+        return (response)
 
 
 @app.route("/sessions", methods=["POST"])
@@ -53,18 +53,18 @@ def login() -> Response:
 
     email = request.form["email"]
     password = request.form["password"]
-    print(email, password)
 
-    auth = Auth()
-    if not auth.valid_login(email, password):
+    if not AUTH.valid_login(email, password):
         abort(401)
 
-    new_sess_id = auth.create_session(email)
+    new_sess_id = AUTH.create_session(email)
     response = jsonify({
         "email": email,
         "message": "logged in"
     })
-    return response.set_cookie("session_id", new_sess_id)
+    response.set_cookie("session_id", new_sess_id)
+
+    return (response)
 
 
 if __name__ == "__main__":

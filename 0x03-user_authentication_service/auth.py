@@ -47,7 +47,6 @@ class Auth:
 
         try:
             pot_user = self._db.find_user_by(email=email)
-            print(pot_user)
             return bcrypt.checkpw(password.encode(
                 'ascii'), pot_user.hashed_password)
         except Exception:
