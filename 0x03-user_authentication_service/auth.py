@@ -81,7 +81,6 @@ class Auth:
 
         return(None)
 
-
     def get_reset_password_token(self, email: str) -> str:
         """update reset_token"""
 
