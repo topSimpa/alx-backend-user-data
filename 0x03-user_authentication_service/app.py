@@ -80,7 +80,7 @@ def logout() -> Response:
     if pos_user is None:
         abort(403)
     AUTH.destroy_session(pos_user.id)
-    return redirect(url_for(index), 302)
+    return redirect("/", 302)
 
 
 if __name__ == "__main__":
