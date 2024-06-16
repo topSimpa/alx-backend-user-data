@@ -83,7 +83,7 @@ def logout() -> Response:
     return redirect("/", 302)
 
 
-@app.route("/sessions", methods=["GET"])
+@app.route("/profile", methods=["GET"])
 def profile() -> Response:
     """returns the email corresponding to user-profile"""
 
