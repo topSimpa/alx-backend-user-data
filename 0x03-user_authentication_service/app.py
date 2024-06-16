@@ -94,10 +94,6 @@ def profile() -> Response:
     return jsonify({"email": pos_user.email})
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
-
-
 @app.route("/reset_password", methods=["POST"])
 def get_reset_password_token() -> Response:
     """get token for resetting password"""
@@ -126,3 +122,7 @@ def update_password() -> Response:
         })
     except ValueError:
         abort(403)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port="5000")
