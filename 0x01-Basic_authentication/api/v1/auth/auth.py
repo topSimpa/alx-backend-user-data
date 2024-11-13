@@ -2,8 +2,8 @@
 """ Module for managing API authentication
 """
 
-import requests from flask
-
+from flask import request
+from typing import List, TypeVar
 
 class Auth:
     """Implementation of the Auth class that manages the authentication
