@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-import request from flask
 """ Module for managing API authentication
 """
+
+import requests from flask
 
 
 class Auth:
