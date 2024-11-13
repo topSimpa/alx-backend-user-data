@@ -20,7 +20,7 @@ class Auth:
            - True: if path is None or not in excluded_path
            - True: if excluded path is empty or None
         """
-        if path:
+        if path and exclude_paths:
             for x_path in excluded_paths:
                 if path in x_path:
                     return False
