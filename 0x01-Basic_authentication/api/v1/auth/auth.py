@@ -26,14 +26,16 @@ class Auth:
                     return False
         return True
 
-    def authorization_header(self, requests=None) -> str:
-        """
+    def authorization_header(self, request=None) -> str:
+        """ Validates all requests to secure the API
         Return:
-           - None
+           - None: if request is None
+           - None: if request doesn't contain the header key Authorizartion
+           - str: the value of header requests [Authorization]
         """
-        return None
+        return request.environ.get('HTTP_AUTHORIZATION')
 
-    def current_user(self, requests=None) -> TypeVar('User'):
+    def current_user(self, request=None) -> TypeVar('User'):
         """
         Return:
            - None
