@@ -5,7 +5,8 @@ import request from flask
 
 
 class Auth:
-    """Implementation of the Auth class that manages the authentication"""
+    """Implementation of the Auth class that manages the authentication
+    """
 
     def __init__(self):
         """Object initialization of auth object"""
@@ -15,15 +16,18 @@ class Auth:
         Return:
          - False
         """
+        return False
 
     def authorization_header(self, requests=None) -> str:
         """
         Return:
            - None
         """
+        return None
 
     def current_user(self, requests=None) -> TypeVar('User'):
         """
         Return:
            - None
         """
+        return None
