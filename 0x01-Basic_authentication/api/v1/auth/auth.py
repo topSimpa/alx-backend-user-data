@@ -14,11 +14,16 @@ class Auth:
         """Object initialization of auth object"""
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Don't know yet
+        """Validates if a path should be authenticated
         Return:
-         - False
+           - False: if path is in excluded_paths
+           - True: if path is None or not in excluded_path
+           - True: if excluded path is empty or None
         """
-        return False
+        for x_path in excluded_paths:
+            if path in x_path:
+                return False
+        return True
 
     def authorization_header(self, requests=None) -> str:
         """
