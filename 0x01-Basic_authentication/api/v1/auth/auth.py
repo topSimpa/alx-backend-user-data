@@ -5,6 +5,7 @@
 from flask import request
 from typing import List, TypeVar
 
+
 class Auth:
     """Implementation of the Auth class that manages the authentication
     """
