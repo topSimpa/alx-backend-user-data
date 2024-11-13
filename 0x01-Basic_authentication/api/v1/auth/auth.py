@@ -20,9 +20,10 @@ class Auth:
            - True: if path is None or not in excluded_path
            - True: if excluded path is empty or None
         """
-        for x_path in excluded_paths:
-            if path in x_path:
-                return False
+        if path:
+            for x_path in excluded_paths:
+                if path in x_path:
+                    return False
         return True
 
     def authorization_header(self, requests=None) -> str:
