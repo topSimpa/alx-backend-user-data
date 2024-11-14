@@ -76,7 +76,7 @@ class BasicAuth(Auth):
             if isinstance(user_email, str) and isinstance(user_pwd, str):
                 try:
                     users = User.search({'email': user_email})
-                except:
+                except BaseException:
                     return None
                 if users:
                     for user in users:
