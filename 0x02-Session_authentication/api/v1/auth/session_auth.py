@@ -4,7 +4,9 @@
 
 
 from api.v1.auth.auth import Auth
+from models.user import User
 from os import getenv
+from typing import TypeVar
 from uuid import uuid4
 
 
@@ -36,3 +38,11 @@ class SessionAuth(Auth):
         if session_id:
             if isinstance(session_id, str):
                 return (self.user_id_by_session_id.get(session_id))
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ Get the user based on a cookie value
+        Return:
+            - User: the user associated with that cookie value
+        """
+        user_id = self.user_id_for_session_id(self.session_cookie(request))
+        return User.get(user_id)
