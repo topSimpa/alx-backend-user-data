@@ -21,7 +21,7 @@ class SessionAuth(Auth):
         """
         if user_id:
             if isinstance(user_id, str):
-                session_id = uuid4()
+                session_id = str(uuid4())
                 self.user_id_by_session_id[session_id] = user_id
                 return session_id
 
@@ -34,4 +34,4 @@ class SessionAuth(Auth):
         """
         if session_id:
             if isinstance(session_id, str):
-                return self.user_id_by_session_id.get(session_id)
+                return(self.user_id_by_session_id.get(session_id))
