@@ -16,7 +16,7 @@ def login() -> str:
         - {error: passwordmissing} 400: if password is missing
         - {error: no user found} 404: if no User found
         - {error: wrong password} 401: if password mismatch
-        - User object in json format if successful
+        - User object in json format if successful, 200
     """
     email = request.form.get('email')
     pwd = request.form.get('password')
@@ -40,3 +40,18 @@ def login() -> str:
                     user.id))
             return response, 200
     return jsonify({"error": "wrong password"}), 401
+
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'],
+                 strict_slashes=False)
+def logout() -> str:
+    """ DELETE /api/v1/auth_session/logout
+    Return:
+        - abort (404) : if deletion is not possible
+        -  {} 200: if deletion is successful
+    """
+    from api.v1.app import auth
+    if auth.destroy_session(request):
+        return jsonify({}), 200
+    abort(404)
