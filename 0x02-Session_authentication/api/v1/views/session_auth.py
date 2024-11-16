@@ -29,7 +29,7 @@ def login() -> str:
     except BaseException:
         return jsonify({"error": "no user found"}), 404
     if not users:
-        return jsonify({"error": "no user found for this user email"}), 404
+        return jsonify({"error": "no user found for this email"}), 404
     for user in users:
         if user.is_valid_password(pwd):
             from api.v1.app import auth
@@ -39,4 +39,4 @@ def login() -> str:
                 auth.create_session(
                     user.id))
             return response, 200
-    return jsonify({"error": "wrong password"})
+    return jsonify({"error": "wrong password"}), 401
