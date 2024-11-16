@@ -33,7 +33,7 @@ def login() -> str:
     for user in users:
         if user.is_valid_password(pwd):
             from api.v1.app import auth
-            response = jsonify(user.to_json)
+            response = jsonify(user.to_json())
             response.set_cookie(
                 getenv('SESSION_NAME'),
                 auth.create_session(
