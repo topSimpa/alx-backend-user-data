@@ -33,7 +33,8 @@ class Auth:
            - None: if request doesn't contain the header key Authorizartion
            - str: the value of header requests [Authorization]
         """
-        return request.environ.get('HTTP_AUTHORIZATION')
+        if request:
+            return request.environ.get('HTTP_AUTHORIZATION')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
