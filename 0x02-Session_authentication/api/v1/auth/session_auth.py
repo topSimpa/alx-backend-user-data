@@ -55,13 +55,10 @@ class SessionAuth(Auth):
                      if session_id is not linked to any user
             - True: if deletion is sucessful
         """
-        print("destroy")
         if request:
             session_id = self.session_cookie(request)
-            print("session")
             if session_id:
                 user_id = self.user_id_for_session_id(session_id)
-                print("User")
                 if user_id:
                     del self.user_id_by_session_id[session_id]
                     return True
