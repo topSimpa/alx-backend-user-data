@@ -34,7 +34,7 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> TypeVar('User'):
-        """add and save a user to the database
+        """ Add and save a user to the database
         Return:
             - User: User object created
         """
@@ -46,7 +46,7 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs: dict) -> TypeVar('User'):
-        """find the first user row that matches the keys and values
+        """ Find the first user row that matches the keys and values
         Return:
             - Row: first user row retrieve
             - Raises NoResultFound and InvalidRequestError accordingly
@@ -58,3 +58,15 @@ class DB:
         except AttributeError:
             raise InvalidRequestError
         return user
+
+    def update_user(self, user_id: int, **kwargs: dict) -> None:
+        """ Update the existing field of a user in the map table
+        Return:
+          - None
+          - raise ValueError: if argument does not match user attribute
+
+        """
+        user = self.find_user_by(id=user_id)
+        if not all(hasattr(user, key) for key in kwargs):
+            raise ValueError
+        vars(user).update(kwargs)
