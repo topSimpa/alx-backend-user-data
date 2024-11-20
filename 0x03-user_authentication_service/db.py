@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """DB module
 """
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 
 from user import Base
@@ -34,11 +35,26 @@ class DB:
 
     def add_user(self, email, hashed_password) -> TypeVar('User'):
         """add and save a user to the database
-        Return a User object created
+        Return:
+            - User: User object created
         """
         user = User()
         user.email = email
         user.hashed_password = hashed_password
         self._session.add(user)
         self._session.commit()
+        return user
+
+    def find_user_by(self, **kwargs: dict) -> TypeVar('User'):
+        """find the first user row that matches the keys and values
+        Return:
+            - Row: first user row retrieve
+            - Raises NoResultFound and InvalidRequestError accordingly
+        """
+        try:
+            user = self._session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound
+        except AttributeError:
+            raise InvalidRequestError
         return user
