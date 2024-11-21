@@ -49,6 +49,18 @@ class Auth:
         except NoResultFound:
             return self._db.add_user(email, hash_password)
 
+    def create_session(self, email: str) -> str:
+        """ create a new session
+        Return:
+            - str: the session_id generated using uuid
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            self._db.update_user(user.id, session_id=_generate_uuid())
+            return user.session_id
+        except BaseException:
+            return None
+
     def valid_login(self, email: str, password: str) -> bool:
         """ Validates user login credentials
         Return:
