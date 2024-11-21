@@ -5,8 +5,17 @@
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
 from typing import TypeVar
+import uuid
 
 from db import DB
+
+
+def _generate_uuid() -> str:
+    """ generate a string representaion of a new uuid
+    Return:
+        - str: the str format of uuid
+    """
+    return str(uuid.uuid4())
 
 
 def _hash_password(password: str) -> bytes:
