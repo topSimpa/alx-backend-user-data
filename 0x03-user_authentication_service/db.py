@@ -59,7 +59,7 @@ class DB:
             raise InvalidRequestError
         return user
 
-    def update_user(self, user_id: int, **kwargs: Any) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """ Update the existing field of a user in the map table
         Return:
           - None
