@@ -45,7 +45,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs: Any) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """ Find the first user row that matches the keys and values
         Return:
             - Row: first user row retrieve
