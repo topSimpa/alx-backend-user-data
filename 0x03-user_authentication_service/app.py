@@ -65,5 +65,11 @@ def login() -> str:
     abort(401)
 
 
+@app.route('/sessions' methods=['DELETE'])
+def logout() -> str:
+    """ DELETE /sessions
+    Return:
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
