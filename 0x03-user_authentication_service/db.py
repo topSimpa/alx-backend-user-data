@@ -72,5 +72,4 @@ class DB:
         # vars(user).update(kwargs)
         for key, value in kwargs.items():
             setattr(user, key, value)
-        print(user.__dict__)
         self._session.commit()
