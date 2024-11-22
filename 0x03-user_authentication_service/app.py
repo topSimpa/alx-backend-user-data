@@ -4,7 +4,7 @@
 
 from auth import Auth
 
-from flask import abort, Flask, jsonify, request
+from flask import abort, Flask, jsonify, request, redirect, url_for
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -65,10 +65,16 @@ def login() -> str:
     abort(401)
 
 
-@app.route('/sessions' methods=['DELETE'])
-def logout() -> str:
+@app.route('/sessions', methods=['DELETE'])
+def logout():
     """ DELETE /sessions
-    Return:
+    Return: redirect response
+    """
+    session_id = request.cookie.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+    if not user:
+        abort(403)
+    redirect(url_for('root'))
 
 
 if __name__ == "__main__":
