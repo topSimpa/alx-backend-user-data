@@ -75,7 +75,7 @@ class Auth:
         except BaseException:
             return False
 
-    def get_user_from_session_id(self, session_id: str) -> TyperVar('User'):
+    def get_user_from_session_id(self, session_id: str) -> TypeVar('User'):
         """ fetch the user corresponding to a session_id
         Return:
             - None: if no user is found
@@ -83,6 +83,16 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(session_id=session_id)
+            if not user:
+                return None
             return user
         except BaseException:
             return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """ change the user session_id field to None
+        Return
+            - None: in all cases
+        """
+        user = self._db.find_user_by(id=user_id)
+        self._db.update_user(user, session_id=None)
