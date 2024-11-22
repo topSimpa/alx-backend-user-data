@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session
 
 from user import Base
 from user import User
-from typing import TypeVar
+from typing import Any, TypeVar
 
 
 class DB:
@@ -45,7 +45,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs: dict) -> TypeVar('User'):
+    def find_user_by(self, **kwargs: Any) -> TypeVar('User'):
         """ Find the first user row that matches the keys and values
         Return:
             - Row: first user row retrieve
@@ -59,7 +59,7 @@ class DB:
             raise InvalidRequestError
         return user
 
-    def update_user(self, user_id: int, **kwargs: dict) -> None:
+    def update_user(self, user_id: int, **kwargs: Any) -> None:
         """ Update the existing field of a user in the map table
         Return:
           - None
@@ -69,4 +69,8 @@ class DB:
         user = self.find_user_by(id=user_id)
         if not all(hasattr(user, key) for key in kwargs):
             raise ValueError
-        vars(user).update(kwargs)
+        # vars(user).update(kwargs)
+        for key, value in kwargs.items():
+            setattr(user, key, value)
+        print(user.__dict__)
+        self._session.commit()

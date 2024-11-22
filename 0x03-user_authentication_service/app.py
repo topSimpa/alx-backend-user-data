@@ -70,12 +70,12 @@ def logout():
     """ DELETE /sessions
     Return: redirect response
     """
-    session_id = request.cookie.get('session_id')
+    session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
-    AUTH.destroy_session(user.id)
     if not user:
         abort(403)
-    redirect(url_for('root'))
+    AUTH.destroy_session(user.id)
+    return redirect(url_for('root'))
 
 
 if __name__ == "__main__":
