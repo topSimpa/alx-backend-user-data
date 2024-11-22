@@ -76,7 +76,7 @@ class Auth:
         except BaseException:
             return False
 
-    def get_user_from_session_id(self, session_id: str) -> TypeVar('User'):
+    def get_user_from_session_id(self, session_id: str) -> User:
         """ fetch the user corresponding to a session_id
         Return:
             - None: if no user is found
