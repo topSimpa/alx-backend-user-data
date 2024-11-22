@@ -8,7 +8,7 @@ from typing import TypeVar
 import uuid
 
 from db import DB
-
+from user import User
 
 def _generate_uuid() -> str:
     """ generate a string representaion of a new uuid
