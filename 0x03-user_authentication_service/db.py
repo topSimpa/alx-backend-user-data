@@ -33,7 +33,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> TypeVar('User'):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """ Add and save a user to the database
         Return:
             - User: User object created
@@ -45,7 +45,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs: Any) -> TypeVar('User'):
+    def find_user_by(self, **kwargs: Any) -> User:
         """ Find the first user row that matches the keys and values
         Return:
             - Row: first user row retrieve
