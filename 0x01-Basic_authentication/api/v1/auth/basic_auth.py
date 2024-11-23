@@ -58,7 +58,7 @@ class BasicAuth(Auth):
             if isinstance(decoded_base64_authorization_header, str):
                 if ':' in decoded_base64_authorization_header:
                     email_match = re.search(
-                        r"[^:]+@[^:]+", decoded_base64_authorization_header)
+                        r"[^:]+", decoded_base64_authorization_header)
                     password = decoded_base64_authorization_header.replace(
                         email_match.group() + ":", "")
                     return (email_match.group(), password)
