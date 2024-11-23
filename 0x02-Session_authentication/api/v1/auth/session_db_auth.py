@@ -40,6 +40,7 @@ class SessionDBAuth(SessionExpAuth):
              - None
         """
         if request:
+            session_id = request.cookies.get('session_id')
             users = UserSession.search({session_id: session_id})
             if users:
                 del users[0]
