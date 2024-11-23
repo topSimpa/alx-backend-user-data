@@ -19,6 +19,7 @@ class Base():
     def __init__(self, *args: list, **kwargs: dict):
         """ Initialize a Base instance
         """
+        # print(initialization)
         s_class = str(self.__class__.__name__)
         if DATA.get(s_class) is None:
             DATA[s_class] = {}
@@ -126,6 +127,7 @@ class Base():
         """ Search all objects with matching attributes
         """
         s_class = cls.__name__
+
         def _search(obj):
             if len(attributes) == 0:
                 return True
