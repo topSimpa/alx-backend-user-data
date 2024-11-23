@@ -29,15 +29,17 @@ class SessionDBAuth(SessionExpAuth):
            - None: if no match
            - str: user_id if match  is success
         """
-        users = UserSession.search({session_id: session_id})
-        if users:
-            return users[0].user_id
+        if session_id:
+            users = UserSession.search({session_id: session_id})
+            if users:
+                return users[0].user_id
 
     def destroy_session(self, request=None) -> None:
         """Destroy the userSession
         Return:
              - None
         """
-        users = UserSession.search({session_id: session_id})
-        if users:
-            del users[0]
+        if request:
+            users = UserSession.search({session_id: session_id})
+            if users:
+                del users[0]
