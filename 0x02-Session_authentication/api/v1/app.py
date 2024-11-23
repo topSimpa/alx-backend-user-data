@@ -23,6 +23,9 @@ if auth_type:
     elif auth_type == 'session_auth':
         from api.v1.auth.session_auth import SessionAuth
         auth = SessionAuth()
+    elif auth_type == 'session_exp_auth':
+        from api.v1.auth.session_exp_auth import SessionExpAuth
+        auth = SessionExpAuth()
 
 
 @app.errorhandler(404)
@@ -58,7 +61,7 @@ def authorization() -> None:
                              ['/api/v1/status/',
                               '/api/v1/unauthorized/',
                               '/api/v1/forbidden/',
-                              '/api/v1/auth_session/login/',]):
+                              '/api/v1/auth_session/login/']):
             if not (auth.authorization_header(request)
                     or auth.session_cookie(request)):
                 abort(401)
