@@ -24,8 +24,8 @@ class Auth:
         if path and excluded_paths:
             for x_path in excluded_paths:
                 if x_path[-1] == "*":
-                    x_path = x[:-1] + ".*"
-                if re.search(x_path, path):
+                    x_path = x_path[:-1] + ".*"
+                if re.search(x_path, path) or path in x_path:
                     return False
         return True
 
