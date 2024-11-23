@@ -23,7 +23,7 @@ class Auth:
         """
         if path and excluded_paths:
             for x_path in excluded_paths:
-                if x_path[-1] = *:
+                if x_path[-1] == "*":
                     x_path = x[:-1] + ".*"
                 if re.search(x_path, path):
                     return False
