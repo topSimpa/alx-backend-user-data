@@ -5,6 +5,7 @@
 from api.v1.auth.auth import Auth
 from models.user import User
 import base64
+import re
 from typing import TypeVar
 
 
@@ -56,8 +57,11 @@ class BasicAuth(Auth):
         if decoded_base64_authorization_header:
             if isinstance(decoded_base64_authorization_header, str):
                 if ':' in decoded_base64_authorization_header:
-                    return tuple(
-                        decoded_base64_authorization_header.split(':'))
+                    email_match = re.search(
+                        r"[^:]+@[^:]+", decoded_base64_authorization_header)
+                    password = decoded_base64_authorization_header.replace(
+                        email_match.group() + ":", "")
+                    return (email_match.group(), password)
         return (None, None)
 
     def user_object_from_credentials(
