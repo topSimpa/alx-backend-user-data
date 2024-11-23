@@ -29,7 +29,7 @@ class SessionDBAuth(SessionExpAuth):
            - None: if no match
            - str: user_id if match  is success
         """
-        users = UserSession.search(session_id=session_id)
+        users = UserSession.search({session_id=session_id})
         if users:
             return users[0].user_id
 
@@ -38,6 +38,6 @@ class SessionDBAuth(SessionExpAuth):
         Return:
              - None
         """
-        users = UserSession.search(session_id=session_id)
+        users = UserSession.search({session_id=session_id})
         if users:
             del users[0]
